@@ -4,7 +4,6 @@ import com.dlrtn.clothing_bin_finder.config.datasource.exception.SshConnectionEx
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,18 +16,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class SessionManager {
 
-    private final SshConfig config;
+    private final SessionProperties properties;
     private JSch jSch;
     private Session session;
+    private boolean identityAdded = false;
 
     public Session buildSession() {
         try {
             session = createSession();
 
-            session.setConfig(config.getSessionProperties());
+            session.setConfig(properties.getProperties());
             session.connect();
 
-            log.info("SSH 세션이 연결되었습니다. Host: {}, Port: {}", config.getHost(), config.getPort());
+            log.info("SSH 세션이 연결되었습니다. Host: {}, Port: {}", properties.getHost(), properties.getPort());
 
             return session;
         } catch (JSchException e) {
@@ -56,7 +56,10 @@ public class SessionManager {
         if (jSch == null) {
             jSch = new JSch();
         }
-        jSch.addIdentity(config.getPrivateKey(), config.getPassphrase());
-        return jSch.getSession(config.getUsername(), config.getHost(), config.getPort());
+        if (!identityAdded) {
+            jSch.addIdentity(properties.getPrivateKey(), properties.getPassphrase());
+            identityAdded = true;
+        }
+        return jSch.getSession(properties.getUsername(), properties.getHost(), properties.getPort());
     }
 }
