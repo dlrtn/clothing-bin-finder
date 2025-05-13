@@ -10,11 +10,11 @@ import java.util.Properties;
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(SshSessionProperties.class)
-public class SshConfig {
+public class SessionProperties {
     private final SshSessionProperties sshSessionProperties;
     private Properties properties;
 
-    public Properties getSessionProperties() {
+    public Properties getProperties() {
         if (properties == null) {
             properties = new Properties();
             properties.put("StrictHostKeyChecking", "no");
