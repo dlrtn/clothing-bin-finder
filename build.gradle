@@ -26,6 +26,9 @@ ext {
 
 	// springdoc-openapi-ui dependencies
 	springdoc_openapi_version = "2.5.0"
+
+	// opencsv dependencies
+	opencsv_version = "5.9"
 }
 
 
@@ -42,6 +45,8 @@ dependencies {
 
 	// swagger ui
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdoc_openapi_version"
+
+	implementation "com.opencsv:opencsv:$opencsv_version"
 
 	compileOnly "org.projectlombok:lombok"
 
