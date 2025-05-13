@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Profile("local")
 @Component
 @RequiredArgsConstructor
-@Setter
 public class TunnelingInitializer {
 
     private final SshTunnelingManager sshTunnelingManager;
