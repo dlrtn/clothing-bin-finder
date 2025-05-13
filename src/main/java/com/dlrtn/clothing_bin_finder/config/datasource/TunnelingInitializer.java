@@ -1,7 +1,6 @@
 package com.dlrtn.clothing_bin_finder.config.datasource;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
