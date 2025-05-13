@@ -21,7 +21,6 @@ public class SessionManager {
     private JSch jSch;
     private Session session;
 
-    @PostConstruct
     public Session buildSession() {
         try {
             session = createSession();
