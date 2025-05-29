@@ -33,6 +33,8 @@ public class ClothingBinController {
 
     @PostMapping
     public ResponseEntity<String> registerClothingBinsByCsvFile(@RequestParam("file") MultipartFile file) {
+        // todo add validation for file type and size
+        // todo add exception handling
         clothingBinService.saveFromCsvFile(file);
 
         return ResponseEntity.ok("헌옷수거함 데이터 등록이 완료되었습니다.");
