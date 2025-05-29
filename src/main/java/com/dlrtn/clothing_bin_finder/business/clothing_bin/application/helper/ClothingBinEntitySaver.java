@@ -27,6 +27,6 @@ public class ClothingBinEntitySaver {
     }
 
     private String createPointString(BigDecimal latitude, BigDecimal longitude) {
-        return "POINT(" + latitude + " " + longitude + ")";
+        return String.format("POINT(%s %s)", latitude, longitude);
     }
 }
