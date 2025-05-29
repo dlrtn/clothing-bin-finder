@@ -4,7 +4,7 @@ import com.dlrtn.clothing_bin_finder.business.clothing_bin.infra.repository.enti
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ public interface ClothingBinRepository extends JpaRepository<ClothingBinEntity, 
                 point(:longitude, :latitude)
             ) <= :distance
             """)
-    List<ClothingBinEntity> findAllByLocation(Double latitude, Double longitude, Integer distance);
+    List<ClothingBinEntity> findAllByLocation(@Param("latitude") Double latitude, @Param("longitude") Double longitude, @Param("distance") Integer distance);
 
     @Modifying
     @Query(nativeQuery = true, value = """
@@ -38,19 +38,10 @@ public interface ClothingBinRepository extends JpaRepository<ClothingBinEntity, 
                 :address
             )
             """)
-    void insertClothingBin(String managementCompany, String point, LocalDate dataReferenceDate, BigDecimal latitude, BigDecimal longitude, String address);
-
-    @Transactional
-    @Modifying
-    @Query(nativeQuery = true, value = """
-                INSERT INTO clothing_bin (
-                    management_company,
-                    location,
-                    data_reference_date,
-                    latitude,
-                    longitude,
-                    address
-                ) VALUES (:#{#clothingBinEntities[0].managementCompany}, ST_GeomFromText('POINT(:#{#clothingBinEntities[0].longitude} :#{#clothingBinEntities[0].latitude})', 4326), :#{#clothingBinEntities[0].dataReferenceDate}, :#{#clothingBinEntities[0].latitude}, :#{#clothingBinEntities[0].longitude}, :#{#clothingBinEntities[0].address})
-            """)
-    void insertMultipleClothingBins(List<ClothingBinEntity> clothingBinEntities);
+    void insertClothingBin(@Param("managementCompany") String managementCompany,
+                           @Param("point") String point,
+                           @Param("dataReferenceDate") LocalDate dataReferenceDate,
+                           @Param("latitude") BigDecimal latitude,
+                           @Param("longitude") BigDecimal longitude,
+                           @Param("address") String address);
 }
