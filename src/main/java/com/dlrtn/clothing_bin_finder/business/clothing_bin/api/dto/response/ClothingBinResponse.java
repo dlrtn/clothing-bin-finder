@@ -1,4 +1,4 @@
-package com.dlrtn.clothing_bin_finder.business.clothing_bin.api.response;
+package com.dlrtn.clothing_bin_finder.business.clothing_bin.api.dto.response;
 
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.domain.ClothingBin;
 import lombok.Builder;

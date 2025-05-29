@@ -1,7 +1,7 @@
 package com.dlrtn.clothing_bin_finder.business.clothing_bin.application;
 
-import com.dlrtn.clothing_bin_finder.business.clothing_bin.api.request.GetClothingBinRequest;
-import com.dlrtn.clothing_bin_finder.business.clothing_bin.api.response.ClothingBinResponse;
+import com.dlrtn.clothing_bin_finder.business.clothing_bin.api.dto.request.GetClothingBinRequest;
+import com.dlrtn.clothing_bin_finder.business.clothing_bin.api.dto.response.ClothingBinResponse;
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper.ClothingBinCsvFileReader;
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper.ClothingBinEntitySaver;
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper.CsvDataMapper;

@@ -1,4 +1,4 @@
-package com.dlrtn.clothing_bin_finder.business.clothing_bin.api.request;
+package com.dlrtn.clothing_bin_finder.business.clothing_bin.api.dto.request;
 
 public record GetClothingBinRequest(
         Integer distance,
