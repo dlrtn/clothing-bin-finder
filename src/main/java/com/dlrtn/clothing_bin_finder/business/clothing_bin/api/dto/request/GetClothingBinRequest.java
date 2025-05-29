@@ -1,19 +1,12 @@
 package com.dlrtn.clothing_bin_finder.business.clothing_bin.api.dto.request;
 
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public record GetClothingBinRequest(
-        Integer distance,
-        Double latitude,
-        Double longitude
-) {
-    public GetClothingBinRequest {
-        if (distance == null || distance <= 0) {
-            throw new IllegalArgumentException("Distance must be a positive integer.");
-        }
-        if (latitude == null || latitude < -90 || latitude > 90) {
-            throw new IllegalArgumentException("Latitude must be between -90 and 90.");
-        }
-        if (longitude == null || longitude < -180 || longitude > 180) {
-            throw new IllegalArgumentException("Longitude must be between -180 and 180.");
-        }
-    }
-}
+        @NotNull @Min(1) Integer distance,
+        @NotNull @DecimalMin("-90.0") @DecimalMax("90.0") Double latitude,
+        @NotNull @DecimalMin("-180.0") @DecimalMax("180.0") Double longitude
+) {}

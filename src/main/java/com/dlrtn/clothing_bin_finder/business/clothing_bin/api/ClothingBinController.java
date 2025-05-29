@@ -23,7 +23,9 @@ public class ClothingBinController {
     private final ClothingBinService clothingBinService;
 
     @GetMapping
-    public ResponseEntity<List<ClothingBinResponse>> getClothingBins(@RequestBody GetClothingBinRequest request) {
+    public ResponseEntity<List<ClothingBinResponse>> getClothingBins(Integer distance, Double latitude, Double longitude) {
+        GetClothingBinRequest request = new GetClothingBinRequest(distance, latitude, longitude);
+
         List<ClothingBinResponse> clothingBins = clothingBinService.read(request);
 
         return ResponseEntity.ok(clothingBins);
