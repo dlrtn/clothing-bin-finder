@@ -8,6 +8,8 @@ import java.util.List;
 @Component
 public class ClothingBinCsvFileValidator {
 
+    private static final int MINIMUM_COLUMNS = 9;
+
     public void validateNotEmptyFile(MultipartFile file) {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("CSV 파일이 비어 있습니다");
@@ -21,7 +23,7 @@ public class ClothingBinCsvFileValidator {
     }
 
     public void validateRowLength(String[] line) {
-        if (line.length < 9) {
+        if (line.length < MINIMUM_COLUMNS) {
             throw new IllegalArgumentException("CSV 행이 필요한 열 수를 포함하지 않습니다");
         }
     }
