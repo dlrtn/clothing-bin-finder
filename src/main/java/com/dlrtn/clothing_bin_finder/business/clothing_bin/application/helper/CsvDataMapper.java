@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Component
@@ -35,8 +36,15 @@ public class CsvDataMapper {
             latitude = BigDecimal.valueOf(Double.parseDouble(line[5]));
             longitude = BigDecimal.valueOf(Double.parseDouble(line[6]));
             dataReferenceDate = LocalDate.parse(line[8]);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid number format in CSV line: " + e.getMessage());
+        }
+
+        if (managementCompany == null || managementCompany.trim().isEmpty()) {
+            throw new IllegalArgumentException("Management company cannot be null or empty");
+        }
+        if (address == null || address.trim().isEmpty()) {
+            throw new IllegalArgumentException("Address cannot be null or empty");
         }
 
         return ClothingBinEntity.builder()
