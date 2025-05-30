@@ -1,5 +1,6 @@
 package com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper;
 
+import com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper.validator.ClothingBinCsvFileValidator;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;

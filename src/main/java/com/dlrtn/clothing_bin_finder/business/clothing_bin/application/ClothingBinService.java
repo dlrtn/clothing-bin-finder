@@ -23,18 +23,15 @@ public class ClothingBinService {
     private final ClothingBinRepository clothingBinRepository;
 
     public void saveFromCsvFile(MultipartFile file) {
-        List<String[]> rows = csvFileReader.readCsvFile(file);
-        for (String[] row : rows) {
-            ClothingBinEntity entity = csvDataMapper.mapToEntity(row);
-            clothingBinEntitySaver.save(entity);
-        }
+        List<String[]> csvRows = csvFileReader.readCsvFile(file);
+
+        List<ClothingBinEntity> clothingBinEntities = csvDataMapper.mapToClothingBinEntity(csvRows);
+
+        clothingBinEntitySaver.saveAll(clothingBinEntities);
     }
 
     public List<ClothingBinResponse> read(GetClothingBinRequest request) {
-        return clothingBinRepository.findAllByLocation(
-                        request.latitude(),
-                        request.longitude(),
-                        request.distance())
+        return clothingBinRepository.findAllByLocation(request.toQuery())
                 .stream()
                 .map(ClothingBinEntity::toDomain)
                 .map(ClothingBinResponse::fromDomain)

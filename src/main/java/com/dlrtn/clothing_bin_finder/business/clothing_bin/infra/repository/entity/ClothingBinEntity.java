@@ -3,13 +3,14 @@ package com.dlrtn.clothing_bin_finder.business.clothing_bin.infra.repository.ent
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.domain.ClothingBin;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,9 +40,11 @@ public class ClothingBinEntity {
     private LocalDate dataReferenceDate;
 
     @Column(name = "created_at", updatable = false, insertable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", insertable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public ClothingBin toDomain() {

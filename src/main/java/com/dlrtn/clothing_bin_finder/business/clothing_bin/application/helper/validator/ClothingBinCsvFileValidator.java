@@ -1,4 +1,4 @@
-package com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper;
+package com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper.validator;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

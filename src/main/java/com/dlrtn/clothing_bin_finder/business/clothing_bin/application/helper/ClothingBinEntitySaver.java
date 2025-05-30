@@ -2,6 +2,7 @@ package com.dlrtn.clothing_bin_finder.business.clothing_bin.application.helper;
 
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.infra.repository.ClothingBinRepository;
 import com.dlrtn.clothing_bin_finder.business.clothing_bin.infra.repository.entity.ClothingBinEntity;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,14 @@ public class ClothingBinEntitySaver {
 
     private final ClothingBinRepository clothingBinRepository;
 
-    public void save(ClothingBinEntity entity) {
+    @Transactional
+    public void saveAll(Iterable<ClothingBinEntity> entities) {
+        for (ClothingBinEntity entity : entities) {
+            save(entity);
+        }
+    }
+
+    private void save(ClothingBinEntity entity) {
         String point = createPointString(entity.getLatitude(), entity.getLongitude());
 
         clothingBinRepository.insertClothingBin(

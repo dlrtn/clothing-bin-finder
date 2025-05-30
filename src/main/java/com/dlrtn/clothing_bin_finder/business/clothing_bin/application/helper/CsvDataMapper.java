@@ -5,9 +5,20 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class CsvDataMapper {
+
+    public List<ClothingBinEntity> mapToClothingBinEntity(List<String[]> csvData) {
+        if (csvData == null || csvData.isEmpty()) {
+            throw new IllegalArgumentException("CSV data cannot be null or empty");
+        }
+
+        return csvData.stream()
+                .map(this::mapToEntity)
+                .toList();
+    }
 
     public ClothingBinEntity mapToEntity(String[] line) {
         if (line == null || line.length < 9) {
