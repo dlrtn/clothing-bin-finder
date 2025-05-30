@@ -4,33 +4,36 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ClothingBinCsvFileValidator {
 
     private static final int MINIMUM_COLUMNS = 9;
+    private static final Set<String> acceptedTypes = Set.of("text/csv", "application/csv", "application/vnd.ms-excel");
+
 
     public void validateNotEmptyFile(MultipartFile file) {
         if (file.isEmpty()) {
-            throw new IllegalArgumentException("CSV 파일이 비어 있습니다");
+            throw new IllegalArgumentException("CSv file is empty");
         }
     }
 
     public void validateCsvContentType(String contentType) {
-        if (contentType == null || !contentType.equals("text/csv") && !contentType.equals("application/csv")) {
-            throw new IllegalArgumentException("CSV 파일 형식이 아닙니다: " + (contentType != null ? contentType : "unknown"));
+        if (contentType == null || !acceptedTypes.contains(contentType)) {
+            throw new IllegalArgumentException("Unsupported file format: " + (contentType != null ? contentType : "unknown"));
         }
     }
 
     public void validateRowLength(String[] line) {
         if (line.length < MINIMUM_COLUMNS) {
-            throw new IllegalArgumentException("CSV 행이 필요한 열 수를 포함하지 않습니다");
+            throw new IllegalArgumentException("CSV row does not contain the required number of columns (minimum: " + MINIMUM_COLUMNS + ")");
         }
     }
 
     public void validateRowsNotEmpty(List<String[]> rows) {
         if (rows.isEmpty()) {
-            throw new IllegalArgumentException("CSV 파일에는 최소 한 개 이상의 데이터 행이 필요합니다");
+            throw new IllegalArgumentException("CSV file must contain at least one data row");
         }
     }
 }
