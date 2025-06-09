@@ -15,7 +15,7 @@ public class ClothingBinCsvFileValidator {
 
     public void validateNotEmptyFile(MultipartFile file) {
         if (file.isEmpty()) {
-            throw new IllegalArgumentException("CSv file is empty");
+            throw new IllegalArgumentException("Csv file is empty");
         }
     }
 
